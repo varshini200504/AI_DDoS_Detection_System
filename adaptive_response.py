@@ -4,6 +4,7 @@ import socket
 import threading
 import logging
 from datetime import datetime
+import json
 
 # ==========================
 # CONFIG
@@ -15,6 +16,7 @@ HONEYPOT_HOST = "0.0.0.0"
 # Windows firewall block command
 # Requires admin terminal
 WINDOWS_BLOCK_CMD = 'netsh advfirewall firewall add rule name="DDoS_Block_{ip}" dir=in action=block remoteip={ip}'
+FIREWALL_RULES_FILE = os.path.join(LOG_DIR, "firewall_rules.json")
 
 # ==========================
 # SETUP
@@ -52,6 +54,25 @@ def block_ip(ip):
     try:
         cmd = WINDOWS_BLOCK_CMD.format(ip=ip)
         os.system(cmd)
+
+        # record rule with timestamp for cleanup
+        entry = {
+            'ip': ip,
+            'rule_name': f"DDoS_Block_{ip}",
+            'timestamp': datetime.utcnow().isoformat()
+        }
+
+        try:
+            os.makedirs(LOG_DIR, exist_ok=True)
+            existing = []
+            if os.path.exists(FIREWALL_RULES_FILE):
+                with open(FIREWALL_RULES_FILE, 'r') as f:
+                    existing = json.load(f)
+            existing.append(entry)
+            with open(FIREWALL_RULES_FILE, 'w') as f:
+                json.dump(existing, f, indent=2)
+        except Exception:
+            pass
 
         print(f"[BLOCKED] {ip}")
 
@@ -156,6 +177,12 @@ def adaptive_response(ip, attack_type, confidence):
 
     return action
 
-start_honeypot()
-while True:
-    time.sleep(1)
+if __name__ == "__main__":
+    # Start honeypot when run as a standalone service
+    start_honeypot()
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print("adaptive_response: stopping honeypot and exiting")

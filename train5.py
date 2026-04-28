@@ -25,6 +25,9 @@ import time
 import joblib
 import psutil
 import matplotlib.pyplot as plt
+import json
+from pathlib import Path
+from datetime import datetime, timezone
 
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
@@ -48,9 +51,18 @@ except ImportError:
 # =========================================================
 DATASET_PATH = "final_multiclass_dataset_large.csv"
 
+BASE_DIR = Path(__file__).resolve().parent
+
 # Lightweight output files
-BINARY_MODEL_SAVE_PATH = "binary_ddos_model_light.pkl"
-BINARY_SCALER_SAVE_PATH = "binary_feature_scaler_light.pkl"
+BINARY_MODEL_SAVE_PATH = BASE_DIR / "binary_ddos_model_light.pkl"
+BINARY_MODEL_STANDARD_PATH = BASE_DIR / "binary_ddos_model.pkl"
+BINARY_SCALER_SAVE_PATH = BASE_DIR / "binary_feature_scaler_light.pkl"
+BINARY_SCALER_STANDARD_PATH = BASE_DIR / "binary_feature_scaler.pkl"
+COMPARISON_CSV_LIGHT = BASE_DIR / "binary_model_comparison_results_light.csv"
+COMPARISON_CSV_STANDARD = BASE_DIR / "binary_model_comparison_results.csv"
+ACCURACY_PLOT_LIGHT = BASE_DIR / "binary_model_accuracy_comparison_light.png"
+ACCURACY_PLOT_STANDARD = BASE_DIR / "binary_model_accuracy_comparison.png"
+METADATA_PATH = BASE_DIR / "binary_model_metadata.json"
 
 # =========================================================
 # LOAD DATASET
@@ -96,6 +108,11 @@ X_scaled = scaler.fit_transform(X)
 joblib.dump(
     scaler,
     BINARY_SCALER_SAVE_PATH,
+    compress=3
+)
+joblib.dump(
+    scaler,
+    BINARY_SCALER_STANDARD_PATH,
     compress=3
 )
 
@@ -269,6 +286,11 @@ joblib.dump(
     BINARY_MODEL_SAVE_PATH,
     compress=3
 )
+joblib.dump(
+    best_model,
+    BINARY_MODEL_STANDARD_PATH,
+    compress=3
+)
 
 # =========================================================
 # FINAL REPORT
@@ -288,7 +310,12 @@ print("\n===== MODEL COMPARISON =====")
 print(results_df)
 
 results_df.to_csv(
-    "binary_model_comparison_results_light.csv",
+    COMPARISON_CSV_LIGHT,
+    index=False
+)
+
+results_df.to_csv(
+    COMPARISON_CSV_STANDARD,
     index=False
 )
 
@@ -307,7 +334,11 @@ plt.ylabel("Accuracy")
 plt.title("Lightweight Binary Model Accuracy Comparison")
 
 plt.savefig(
-    "binary_model_accuracy_comparison_light.png"
+    ACCURACY_PLOT_LIGHT
+)
+
+plt.savefig(
+    ACCURACY_PLOT_STANDARD
 )
 
 plt.show()
@@ -315,11 +346,20 @@ plt.show()
 # =========================================================
 # MODEL SIZE CHECK
 # =========================================================
-import os
-
-model_size_mb = (
-    os.path.getsize(BINARY_MODEL_SAVE_PATH)
-    / (1024 * 1024)
-)
+model_size_mb = BINARY_MODEL_SAVE_PATH.stat().st_size / (1024 * 1024)
 
 print(f"\nFinal model size: {model_size_mb:.2f} MB")
+
+metadata = {
+    "dataset_path": str(Path(DATASET_PATH).resolve()),
+    "trained_at_utc": datetime.now(timezone.utc).isoformat(),
+    "best_model": best_model_name,
+    "best_accuracy": best_accuracy,
+    "model_path": str(BINARY_MODEL_STANDARD_PATH),
+    "scaler_path": str(BINARY_SCALER_STANDARD_PATH),
+    "model_size_mb": model_size_mb,
+    "rows": int(len(df))
+}
+
+with open(METADATA_PATH, "w", encoding="utf-8") as f:
+    json.dump(metadata, f, indent=2)

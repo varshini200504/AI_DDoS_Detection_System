@@ -7,7 +7,7 @@ from flask import Flask
 # ==========================
 HTTP_PORT = 5000
 UDP_PORT = 5001
-TCP_PORT = 8080
+TCP_PORT = 8081
 
 # ==========================
 # FLASK HTTP SERVER

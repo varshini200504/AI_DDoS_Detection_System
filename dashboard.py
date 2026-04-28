@@ -8,6 +8,7 @@ import time
 # ==========================
 LOG_FILE = os.path.join("logs", "security_actions.log")
 REFRESH_INTERVAL = 2  # seconds
+PORT = 5002
 
 app = Flask(__name__)
 
@@ -121,6 +122,7 @@ HTML_TEMPLATE = """
 # LOG PARSER
 # ==========================
 def parse_logs():
+    import json
     events = []
 
     if not os.path.exists(LOG_FILE):
@@ -131,25 +133,30 @@ def parse_logs():
 
     for line in reversed(lines[-100:]):  # Last 100 events
         try:
-            parts = line.strip().split(" | ")
+            # Parse JSON log entry
+            log_obj = json.loads(line.strip())
+            timestamp = log_obj.get("timestamp", "Unknown")
+            message = log_obj.get("message", "")
 
-            timestamp = parts[0].split(" - ")[0]
+            # Extract IP and attack details from message
+            # Format: "192.168.1.4 | Attack=UDP | Action=RATE_LIMIT | Confidence=0.83"
+            parts = message.split(" | ")
 
-            ip = parts[0].split("IP=")[-1] if "IP=" in parts[0] else "Unknown"
+            ip = parts[0].strip() if parts else "Unknown"
 
             attack = "Unknown"
             action = "Unknown"
             confidence = "N/A"
 
-            for part in parts:
+            for part in parts[1:]:
                 if "Attack=" in part:
-                    attack = part.replace("Attack=", "")
+                    attack = part.replace("Attack=", "").strip()
 
                 elif "Action=" in part:
-                    action = part.replace("Action=", "")
+                    action = part.replace("Action=", "").strip()
 
                 elif "Confidence=" in part:
-                    confidence = part.replace("Confidence=", "")
+                    confidence = part.replace("Confidence=", "").strip()
 
             events.append({
                 "timestamp": timestamp,
@@ -188,10 +195,10 @@ if __name__ == "__main__":
     os.makedirs("logs", exist_ok=True)
 
     print("Starting dashboard...")
-    print("Open browser: http://127.0.0.1:5000")
+    print(f"Open browser: http://127.0.0.1:{PORT}")
 
     app.run(
         host="0.0.0.0",
-        port=5000,
+        port=PORT,
         debug=False
     )

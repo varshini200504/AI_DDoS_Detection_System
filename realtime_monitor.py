@@ -4,40 +4,34 @@ import psutil
 import numpy as np
 import pandas as pd
 import threading
-import logging
-from collections import defaultdict
-from scapy.all import sniff, IP, TCP, UDP
+from pathlib import Path
+from collections import defaultdict, deque
+from scapy.all import sniff, IP, TCP, UDP, get_if_list
+
+# Local helpers and config
+from detect_interface import get_working_interface
+from logger_setup import setup_logging
+import config
 
 # ==========================
-# CONFIG
+# CONFIG (from config.py)
 # ==========================
-WINDOW_SIZE = 3
-INTERFACE = "Intel(R) Wi-Fi 6 AX200 160MHz"
+WINDOW_SIZE = config.WINDOW_SIZE
+INTERFACE = get_working_interface() or config.DEFAULT_INTERFACE
 
-BINARY_MODEL_PATH = "binary_ddos_model.pkl"
-MULTICLASS_MODEL_PATH = "best_ddos_model.pkl"
-SCALER_PATH = "binary_feature_scaler.pkl"
+BINARY_MODEL_PATH = config.BINARY_MODEL_PATH
+MULTICLASS_MODEL_PATH = config.MULTICLASS_MODEL_PATH
+SCALER_PATH = config.SCALER_PATH
 
-# YOUR DEFENDER MACHINE IP
-MONITORED_IP = "192.168.1.4"
+MONITORED_IP = config.MONITORED_IP
+MONITORED_PORTS = config.MONITORED_PORTS
+MIN_PACKETS_THRESHOLD = config.MIN_PACKETS_THRESHOLD
+BINARY_CONFIDENCE_THRESHOLD = config.BINARY_CONFIDENCE_THRESHOLD
+SAFE_IPS = config.SAFE_IPS
+LOG_FILE = config.LOG_FILE
 
-# Only monitor traffic targeting your services
-MONITORED_PORTS = {5000, 8080, 80}
-
-# Detection strictness
-MIN_PACKETS_THRESHOLD = 10
-BINARY_CONFIDENCE_THRESHOLD = 0.75
-
-# Safe infrastructure
-SAFE_IPS = {
-    "127.0.0.1",
-    "0.0.0.0",
-    "255.255.255.255",
-    "192.168.1.1"
-}
-
-# Logging
-LOG_FILE = "logs/security_actions.log"
+# Setup structured logger
+logger = setup_logging(__name__, log_file=LOG_FILE)
 
 # ==========================
 # FEATURE NAMES
@@ -81,25 +75,47 @@ attack_label_map = {
     12: "UDPLag"
 }
 
-# ==========================
-# LOAD MODELS
-# ==========================
-print("Loading models...")
+# Models will be loaded at runtime to avoid heavy top-level import work
+binary_model = None
+multiclass_model = None
+scaler = None
+models_ready = False
 
-binary_model = joblib.load(BINARY_MODEL_PATH)
-multiclass_model = joblib.load(MULTICLASS_MODEL_PATH)
-scaler = joblib.load(SCALER_PATH)
+def load_models():
+    global binary_model, multiclass_model, scaler, models_ready
+    logger.info("Loading models...")
+    try:
+        binary_path = Path(BINARY_MODEL_PATH)
+        scaler_path = Path(SCALER_PATH)
 
-print("Models loaded successfully!")
+        if not binary_path.exists():
+            raise FileNotFoundError(f"Binary model not found: {binary_path}")
+        if not scaler_path.exists():
+            raise FileNotFoundError(f"Scaler not found: {scaler_path}")
+
+        binary_model = joblib.load(binary_path)
+        scaler = joblib.load(scaler_path)
+        multiclass_path = Path(MULTICLASS_MODEL_PATH)
+        if multiclass_path.exists():
+            multiclass_model = joblib.load(multiclass_path)
+        else:
+            multiclass_model = None
+            logger.warning(
+                "Multiclass model not found at %s; attack typing will be degraded.",
+                multiclass_path
+            )
+        models_ready = True
+        logger.info("Models loaded successfully!")
+        return True
+    except Exception as e:
+        models_ready = False
+        logger.error(f"Error loading models: {e}")
+        return False
 
 # ==========================
 # LOGGING SETUP
 # ==========================
-logging.basicConfig(
-    filename=LOG_FILE,
-    level=logging.INFO,
-    format="%(asctime)s - IP=%(message)s"
-)
+# Note: structured logging via logger
 
 # ==========================
 # FLOW STORAGE
@@ -111,7 +127,8 @@ flow_stats = defaultdict(lambda: {
     "bwd_packets": 0,
     "fwd_bytes": 0,
     "bwd_bytes": 0,
-    "packet_lengths": [],
+    # Limited-length buffer to avoid unbounded memory growth
+    "packet_lengths": deque(maxlen=1000),
     "syn_count": 0,
     "ack_count": 0,
     "rst_count": 0,
@@ -120,10 +137,15 @@ flow_stats = defaultdict(lambda: {
     "protocol": 0
 })
 
+captured_packets_total = 0
+no_flow_windows = 0
+
 # ==========================
 # PACKET CAPTURE
 # ==========================
 def process_packet(packet):
+    global captured_packets_total
+
     if IP not in packet:
         return
 
@@ -185,7 +207,9 @@ def process_packet(packet):
     elif UDP in packet:
         flow["protocol"] = 17
 
-    print(f"Captured: {src_ip} -> {dst_ip}:{dest_port}")
+    captured_packets_total += 1
+    if captured_packets_total % 500 == 0:
+        print(f"Captured packets total: {captured_packets_total}")
 
 # ==========================
 # FEATURE EXTRACTION
@@ -199,10 +223,11 @@ def extract_features(flow):
     flow_packets_per_sec = total_packets / duration
     flow_bytes_per_sec = total_bytes / duration
 
-    packet_mean = np.mean(flow["packet_lengths"]) if flow["packet_lengths"] else 0
-    packet_std = np.std(flow["packet_lengths"]) if flow["packet_lengths"] else 0
+    packet_lengths = list(flow["packet_lengths"]) if flow["packet_lengths"] else []
+    packet_mean = float(np.mean(packet_lengths)) if packet_lengths else 0.0
+    packet_std = float(np.std(packet_lengths)) if packet_lengths else 0.0
 
-    avg_packet_size = total_bytes / total_packets if total_packets > 0 else 0
+    avg_packet_size = total_bytes / total_packets if total_packets > 0 else 0.0
 
     down_up_ratio = (
         flow["bwd_packets"] / flow["fwd_packets"]
@@ -240,7 +265,7 @@ def adaptive_response(src_ip, attack_type, confidence):
         action = "RATE_LIMIT"
 
     else:
-        if attack_type in ["Syn", "UDP", "UDPLag", "Portmap"]:
+        if attack_type in ["Syn", "UDP", "UDPLag", "Portmap", "HTTP_Flood"]:
             action = "BLOCK"
 
         elif attack_type in [
@@ -259,18 +284,57 @@ def adaptive_response(src_ip, attack_type, confidence):
         f"Action={action} | Confidence={confidence:.2f}"
     )
 
-    logging.info(log_entry)
+    logger.info(log_entry)
 
     print(f"Action for {src_ip}: {action}")
+
+
+def normalize_attack_label(predicted_label, flow):
+    """Correct obviously inconsistent labels for local demo traffic."""
+    protocol = flow.get("protocol", 0)
+    dest_port = flow.get("dest_port", 0)
+    syn = flow.get("syn_count", 0)
+    ack = flow.get("ack_count", 0)
+
+    if protocol == 6 and predicted_label in {"UDP", "UDPLag"}:
+        if dest_port in {80, 5000, 8080, 8081} and ack >= max(1, syn // 2):
+            return "HTTP_Flood"
+        return "Syn"
+
+    if protocol == 17 and predicted_label in {"Syn", "HTTP_Flood"}:
+        return "UDP"
+
+    return predicted_label
 
 # ==========================
 # ANALYSIS ENGINE
 # ==========================
 def analyze_flows():
+    global no_flow_windows
+
     while True:
         time.sleep(WINDOW_SIZE)
 
+        if not models_ready:
+            if flow_stats:
+                flow_stats.clear()
+            logger.warning(
+                "Inference is disabled until binary and scaler artifacts are available."
+            )
+            continue
+
         print("\n===== REAL-TIME ANALYSIS =====")
+        print(f"Total flows in buffer: {len(flow_stats)}")
+
+        if len(flow_stats) == 0:
+            no_flow_windows += 1
+            if no_flow_windows >= 3:
+                print(
+                    "No matched traffic yet. "
+                    f"Filter is dst_ip={MONITORED_IP}, ports={sorted(MONITORED_PORTS)}"
+                )
+        else:
+            no_flow_windows = 0
 
         for flow_key, flow in list(flow_stats.items()):
             src_ip = flow_key
@@ -280,17 +344,15 @@ def analyze_flows():
 
             # Ignore tiny bursts
             if flow["fwd_packets"] < MIN_PACKETS_THRESHOLD:
+                print(f"  {src_ip}: FILTERED (only {flow['fwd_packets']} packets, threshold={MIN_PACKETS_THRESHOLD})")
                 del flow_stats[flow_key]
                 continue
 
             features = extract_features(flow)
 
-            feature_df = pd.DataFrame(
-                [features],
-                columns=FEATURE_NAMES
-            )
-
-            scaled_features = scaler.transform(feature_df)
+            # Keep feature names aligned with training to avoid scaler warnings
+            feature_frame = pd.DataFrame([features], columns=FEATURE_NAMES)
+            scaled_features = scaler.transform(feature_frame)
 
             # Binary detection
             binary_pred = binary_model.predict(scaled_features)[0]
@@ -304,26 +366,30 @@ def analyze_flows():
 
             # Confidence filter
             if binary_confidence < BINARY_CONFIDENCE_THRESHOLD:
-                print(f"{src_ip} -> NORMAL traffic")
+                print(f"  {src_ip}: LOW CONFIDENCE ({binary_confidence:.2f} < {BINARY_CONFIDENCE_THRESHOLD})")
                 del flow_stats[flow_key]
                 continue
 
             # Attack path
             if binary_pred == 1:
-                attack_pred = multiclass_model.predict(
-                    scaled_features
-                )[0]
+                if multiclass_model is not None:
+                    attack_pred = multiclass_model.predict(
+                        scaled_features
+                    )[0]
 
-                attack_name = attack_label_map.get(
-                    attack_pred,
-                    f"Unknown Attack ({attack_pred})"
-                )
+                    attack_name = attack_label_map.get(
+                        attack_pred,
+                        f"Unknown Attack ({attack_pred})"
+                    )
+                else:
+                    attack_name = "Attack"
 
-                print(f"{src_ip} -> ATTACK DETECTED: {attack_name}")
-                print(f"Confidence: {binary_confidence:.2f}")
+                attack_name = normalize_attack_label(attack_name, flow)
 
+                print(f"  {src_ip}: *** ATTACK DETECTED: {attack_name} ***")
+                print(f"     Confidence: {binary_confidence:.2f}")
                 print(
-                    f"Reason: SYN={flow['syn_count']}, "
+                    f"     Reason: SYN={flow['syn_count']}, "
                     f"ACK={flow['ack_count']}, "
                     f"Packets/sec={features[1]:.2f}"
                 )
@@ -335,7 +401,7 @@ def analyze_flows():
                 )
 
             else:
-                print(f"{src_ip} -> NORMAL traffic")
+                print(f"  {src_ip}: Normal (confidence={binary_confidence:.2f})")
 
             # Reset flow
             del flow_stats[flow_key]
@@ -351,16 +417,40 @@ if __name__ == "__main__":
     print("Starting real-time DDoS monitor...")
     print(f"Protecting IP: {MONITORED_IP}")
     print(f"Protected Ports: {MONITORED_PORTS}")
+    print(f"Sniff interface: {INTERFACE}")
 
     analysis_thread = threading.Thread(
         target=analyze_flows,
         daemon=True
     )
 
+    # Load models before starting analysis
+    load_models()
     analysis_thread.start()
 
-    sniff(
-        prn=process_packet,
-        store=False,
-        iface=INTERFACE
-    )
+    sniff_targets = []
+    if INTERFACE:
+        sniff_targets.append(INTERFACE)
+
+    for iface in get_if_list():
+        if "loopback" in iface.lower() and iface not in sniff_targets:
+            sniff_targets.append(iface)
+
+    print(f"Sniff targets: {sniff_targets}")
+
+    def run_sniffer(iface_name):
+        sniff(
+            prn=process_packet,
+            store=False,
+            iface=iface_name
+        )
+
+    for iface_name in sniff_targets:
+        threading.Thread(
+            target=run_sniffer,
+            args=(iface_name,),
+            daemon=True
+        ).start()
+
+    while True:
+        time.sleep(1)

@@ -1,0 +1,10 @@
+{
+  "dataset_path": "D:\\DDoS_attack_mitigation\\final_multiclass_dataset_large.csv",
+  "trained_at_utc": "2026-04-28T13:15:55.889134Z",
+  "best_model": "Decision Tree",
+  "best_accuracy": 0.9349375,
+  "model_path": "D:\\DDoS_attack_mitigation\\binary_ddos_model.pkl",
+  "scaler_path": "D:\\DDoS_attack_mitigation\\binary_feature_scaler.pkl",
+  "model_size_mb": 0.02355480194091797,
+  "rows": 720000
+}
