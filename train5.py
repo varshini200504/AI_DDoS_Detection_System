@@ -323,10 +323,3 @@ model_size_mb = (
 )
 
 print(f"\nFinal model size: {model_size_mb:.2f} MB")
-
-# =========================================================
-# DEPLOYMENT GOAL:
-# Ideally:
-# <100MB = good
-# <50MB = strong lightweight claim
-# =========================================================
