@@ -16,10 +16,10 @@ TARGET_PORTS = {
 }
 
 # Smaller defaults make the demo finish quickly and consistently
-ATTACK_THREADS = 10
-PACKETS_PER_THREAD = 500
+ATTACK_THREADS = 5
+PACKETS_PER_THREAD = 120
 
-HTTP_TIMEOUT = 0.1
+HTTP_TIMEOUT = 0.03
 
 # ==========================
 # HTTP FLOOD ATTACK

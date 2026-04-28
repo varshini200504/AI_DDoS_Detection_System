@@ -1,0 +1,14 @@
+==== ATTACK SIMULATOR ====
+Target IP: 192.168.1.4
+HTTP Port: 5000
+UDP Port: 5001
+SYN Port: 8081
+
+1. HTTP Flood
+2. UDP Flood
+3. SYN Flood
+Choose attack type (1/2/3): 
+Starting UDP flood attack...
+Target: 192.168.1.4:5001 | Threads: 5 | Packets/thread: 120
+UDP attack completed in 0.01 sec
+Approx packets sent: 600

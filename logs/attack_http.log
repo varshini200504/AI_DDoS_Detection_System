@@ -1,0 +1,42 @@
+==== ATTACK SIMULATOR ====
+Target IP: 192.168.1.4
+HTTP Port: 5000
+UDP Port: 5001
+SYN Port: 8081
+
+1. HTTP Flood
+2. UDP Flood
+3. SYN Flood
+Choose attack type (1/2/3): 
+Starting HTTP flood attack...
+Target: 192.168.1.4:5000 | Threads: 5 | Packets/thread: 120
+HTTP attack completed in 5.80 sec
+Approx packets sent: 600
+==== ATTACK SIMULATOR ====
+Target IP: 192.168.1.4
+HTTP Port: 5000
+UDP Port: 5001
+SYN Port: 8081
+
+1. HTTP Flood
+2. UDP Flood
+3. SYN Flood
+Choose attack type (1/2/3): 
+Starting HTTP flood attack...
+Target: 192.168.1.4:5000 | Threads: 5 | Packets/thread: 120
+HTTP attack completed in 5.72 sec
+Approx packets sent: 600
+==== ATTACK SIMULATOR ====
+Target IP: 192.168.1.4
+HTTP Port: 5000
+UDP Port: 5001
+SYN Port: 8081
+
+1. HTTP Flood
+2. UDP Flood
+3. SYN Flood
+Choose attack type (1/2/3): 
+Starting HTTP flood attack...
+Target: 192.168.1.4:5000 | Threads: 5 | Packets/thread: 120
+HTTP attack completed in 5.69 sec
+Approx packets sent: 600

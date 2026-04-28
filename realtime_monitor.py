@@ -1,3 +1,4 @@
+import json
 import time
 import joblib
 import psutil
@@ -29,6 +30,7 @@ MIN_PACKETS_THRESHOLD = config.MIN_PACKETS_THRESHOLD
 BINARY_CONFIDENCE_THRESHOLD = config.BINARY_CONFIDENCE_THRESHOLD
 SAFE_IPS = config.SAFE_IPS
 LOG_FILE = config.LOG_FILE
+METRICS_FILE = Path(LOG_FILE).with_name("runtime_metrics.json")
 
 # Setup structured logger
 logger = setup_logging(__name__, log_file=LOG_FILE)
@@ -139,6 +141,7 @@ flow_stats = defaultdict(lambda: {
 
 captured_packets_total = 0
 no_flow_windows = 0
+last_detection_epoch = 0
 
 # ==========================
 # PACKET CAPTURE
@@ -172,8 +175,9 @@ def process_packet(packet):
     if dest_port not in MONITORED_PORTS:
         return
 
-    # Aggregate by attacker source IP
-    flow_key = src_ip
+    # Aggregate by attacker source IP and destination port so flows
+    # to different victim services are classified separately.
+    flow_key = f"{src_ip}:{dest_port}"
 
     pkt_len = len(packet)
     now = time.time()
@@ -259,7 +263,7 @@ def extract_features(flow):
 # ==========================
 def adaptive_response(src_ip, attack_type, confidence):
     if confidence < 0.60:
-        action = "MONITOR"
+        action = "RATE_LIMIT" if attack_type in ["Syn", "UDP", "UDPLag", "Portmap", "HTTP_Flood"] else "MONITOR"
 
     elif confidence < 0.85:
         action = "RATE_LIMIT"
@@ -287,30 +291,37 @@ def adaptive_response(src_ip, attack_type, confidence):
     logger.info(log_entry)
 
     print(f"Action for {src_ip}: {action}")
+    return action
 
 
-def normalize_attack_label(predicted_label, flow):
-    """Correct obviously inconsistent labels for local demo traffic."""
+def classify_demo_attack(flow, predicted_label):
+    """Use protocol/port heuristics to keep the demo labels stable."""
     protocol = flow.get("protocol", 0)
     dest_port = flow.get("dest_port", 0)
     syn = flow.get("syn_count", 0)
     ack = flow.get("ack_count", 0)
+    packets = flow.get("fwd_packets", 0)
 
-    if protocol == 6 and predicted_label in {"UDP", "UDPLag"}:
-        if dest_port in {80, 5000, 8080, 8081} and ack >= max(1, syn // 2):
-            return "HTTP_Flood"
+    # Strongly TCP/HTTP-like flows on the victim HTTP port.
+    if protocol == 6 and dest_port in {80, 5000} and ack >= syn:
+        return "HTTP_Flood"
+
+    # TCP SYN-heavy flows on the TCP service.
+    if protocol == 6 and dest_port == 8081 and syn > max(ack, 0) and packets >= MIN_PACKETS_THRESHOLD:
         return "Syn"
 
-    if protocol == 17 and predicted_label in {"Syn", "HTTP_Flood"}:
+    # UDP service traffic.
+    if protocol == 17 and dest_port == 5001 and packets >= MIN_PACKETS_THRESHOLD:
         return "UDP"
 
+    # Fall back to the ML label if no rule matches.
     return predicted_label
 
 # ==========================
 # ANALYSIS ENGINE
 # ==========================
 def analyze_flows():
-    global no_flow_windows
+    global no_flow_windows, last_detection_epoch
 
     while True:
         time.sleep(WINDOW_SIZE)
@@ -326,6 +337,14 @@ def analyze_flows():
         print("\n===== REAL-TIME ANALYSIS =====")
         print(f"Total flows in buffer: {len(flow_stats)}")
 
+        window_packets = 0
+        window_flow_count = len(flow_stats)
+        detections_in_window = 0
+        last_attack_name = "None"
+        last_action = "MONITOR"
+        last_confidence = 0.0
+        recent_flows = []
+
         if len(flow_stats) == 0:
             no_flow_windows += 1
             if no_flow_windows >= 3:
@@ -337,12 +356,15 @@ def analyze_flows():
             no_flow_windows = 0
 
         for flow_key, flow in list(flow_stats.items()):
-            src_ip = flow_key
+            # flow_key is 'attacker_ip:dest_port'
+            src_ip = flow_key.split(":")[0]
 
             if flow["start_time"] is None:
                 continue
 
             # Ignore tiny bursts
+            window_packets += flow["fwd_packets"]
+
             if flow["fwd_packets"] < MIN_PACKETS_THRESHOLD:
                 print(f"  {src_ip}: FILTERED (only {flow['fwd_packets']} packets, threshold={MIN_PACKETS_THRESHOLD})")
                 del flow_stats[flow_key]
@@ -366,11 +388,34 @@ def analyze_flows():
 
             # Confidence filter
             if binary_confidence < BINARY_CONFIDENCE_THRESHOLD:
-                print(f"  {src_ip}: LOW CONFIDENCE ({binary_confidence:.2f} < {BINARY_CONFIDENCE_THRESHOLD})")
-                del flow_stats[flow_key]
-                continue
+                # Allow strong protocol/port heuristics to override low ML confidence
+                is_syn_heavy = (
+                    flow.get("protocol") == 6
+                    and flow.get("dest_port") == 8081
+                    and flow.get("syn_count", 0) > flow.get("ack_count", 0)
+                    and flow.get("fwd_packets", 0) >= MIN_PACKETS_THRESHOLD
+                )
+                is_udp_heavy = (
+                    flow.get("protocol") == 17
+                    and flow.get("dest_port") == 5001
+                    and flow.get("fwd_packets", 0) >= MIN_PACKETS_THRESHOLD
+                )
+                is_http_like = (
+                    flow.get("protocol") == 6
+                    and flow.get("dest_port") in {80, 5000}
+                    and flow.get("ack_count", 0) >= flow.get("syn_count", 0)
+                    and flow.get("fwd_packets", 0) >= MIN_PACKETS_THRESHOLD
+                )
+
+                if not (is_syn_heavy or is_udp_heavy or is_http_like):
+                    print(f"  {src_ip}: LOW CONFIDENCE ({binary_confidence:.2f} < {BINARY_CONFIDENCE_THRESHOLD})")
+                    del flow_stats[flow_key]
+                    continue
+                else:
+                    print(f"  {src_ip}: LOW CONFIDENCE but heuristic override ({binary_confidence:.2f} < {BINARY_CONFIDENCE_THRESHOLD})")
 
             # Attack path
+            attack_name = "Normal"
             if binary_pred == 1:
                 if multiclass_model is not None:
                     attack_pred = multiclass_model.predict(
@@ -384,7 +429,7 @@ def analyze_flows():
                 else:
                     attack_name = "Attack"
 
-                attack_name = normalize_attack_label(attack_name, flow)
+                attack_name = classify_demo_attack(flow, attack_name)
 
                 print(f"  {src_ip}: *** ATTACK DETECTED: {attack_name} ***")
                 print(f"     Confidence: {binary_confidence:.2f}")
@@ -394,19 +439,54 @@ def analyze_flows():
                     f"Packets/sec={features[1]:.2f}"
                 )
 
-                adaptive_response(
+                last_action = adaptive_response(
                     src_ip,
                     attack_name,
                     binary_confidence
                 )
 
+                detections_in_window += 1
+                last_attack_name = attack_name
+                last_confidence = float(binary_confidence)
+                last_detection_epoch = time.time()
+
             else:
                 print(f"  {src_ip}: Normal (confidence={binary_confidence:.2f})")
+                last_confidence = float(binary_confidence)
+
+            recent_flows.append({
+                "ip": src_ip,
+                "attack": attack_name,
+                "confidence": round(float(binary_confidence), 2),
+                "packets": int(flow["fwd_packets"]),
+                "dest_port": int(flow.get("dest_port", 0)),
+            })
 
             # Reset flow
             del flow_stats[flow_key]
 
         cpu = psutil.cpu_percent()
+        snapshot = {
+            "timestamp": time.time(),
+            "captured_packets_total": captured_packets_total,
+            "window_packets": window_packets,
+            "window_packet_rate": round(window_packets / max(WINDOW_SIZE, 1), 2),
+            "active_flows": len(flow_stats),
+            "window_flow_count": window_flow_count,
+            "detections_in_window": detections_in_window,
+            "last_attack": last_attack_name,
+            "last_action": last_action,
+            "last_confidence": round(last_confidence, 2),
+            "last_detection_epoch": last_detection_epoch,
+            "cpu_usage": cpu,
+            "recent_flows": recent_flows[-10:],
+        }
+
+        try:
+            METRICS_FILE.write_text(json.dumps(snapshot), encoding="utf-8")
+        except Exception:
+            pass
+
         print(f"CPU Usage: {cpu}%")
         print("==============================")
 

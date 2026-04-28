@@ -1,0 +1,846 @@
+Starting real-time DDoS monitor...
+Protecting IP: 192.168.1.4
+Protected Ports: {5000, 5001, 8081, 80}
+Sniff interface: \Device\NPF_{3E6182E9-99C4-431E-A147-0E2B8C19E657}
+2026-04-28 23:31:34,067 - __main__ - INFO - Loading models...
+2026-04-28 23:31:48,046 - __main__ - INFO - Models loaded successfully!
+Sniff targets: ['\\Device\\NPF_{3E6182E9-99C4-431E-A147-0E2B8C19E657}', '\\Device\\NPF_Loopback']
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+CPU Usage: 0.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+CPU Usage: 96.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 94.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 86.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 96.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 95.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 93.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 88.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 97.9%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 96.3%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 88.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 88.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 99.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 87.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 92.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 96.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 96.8%
+==============================
+Starting real-time DDoS monitor...
+Protecting IP: 192.168.1.4
+Protected Ports: {5000, 5001, 8081, 80}
+Sniff interface: \Device\NPF_{3E6182E9-99C4-431E-A147-0E2B8C19E657}
+2026-04-28 23:34:19,022 - __main__ - INFO - Loading models...
+2026-04-28 23:34:23,569 - __main__ - INFO - Models loaded successfully!
+Sniff targets: ['\\Device\\NPF_{3E6182E9-99C4-431E-A147-0E2B8C19E657}', '\\Device\\NPF_Loopback']
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+CPU Usage: 0.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+CPU Usage: 59.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 62.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 32.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 43.2%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 49.9%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 28.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 27.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 39.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 16.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 27.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 26.2%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 27.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 44.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 45.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 31.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 22.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 37.2%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 36.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 41.9%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 30.2%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 39.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 38.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 34.9%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 32.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 40.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 30.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 25.9%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 26.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 32.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 37.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 38.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 40.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 34.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 25.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 40.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 41.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 37.3%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 32.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 31.9%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 36.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 26.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 45.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 51.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 70.2%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 51.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 49.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 37.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 40.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 48.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 47.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 50.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 73.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 50.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 68.2%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 39.9%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 39.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 37.2%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 47.5%
+==============================
+Captured packets total: 500
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 1
+  192.168.1.4: *** ATTACK DETECTED: HTTP_Flood ***
+     Confidence: 0.83
+     Reason: SYN=169, ACK=508, Packets/sec=435.26
+2026-04-28 23:37:23,851 - __main__ - INFO - 192.168.1.4 | Attack=HTTP_Flood | Action=RATE_LIMIT | Confidence=0.83
+Action for 192.168.1.4: RATE_LIMIT
+CPU Usage: 48.3%
+==============================
+Captured packets total: 1000
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 1
+  192.168.1.4: *** ATTACK DETECTED: UDP ***
+     Confidence: 0.83
+     Reason: SYN=340, ACK=215, Packets/sec=162.75
+2026-04-28 23:37:27,023 - __main__ - INFO - 192.168.1.4 | Attack=UDP | Action=RATE_LIMIT | Confidence=0.83
+Action for 192.168.1.4: RATE_LIMIT
+CPU Usage: 59.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 1
+  192.168.1.4: *** ATTACK DETECTED: HTTP_Flood ***
+     Confidence: 0.83
+     Reason: SYN=91, ACK=94, Packets/sec=61.58
+2026-04-28 23:37:30,086 - __main__ - INFO - 192.168.1.4 | Attack=HTTP_Flood | Action=RATE_LIMIT | Confidence=0.83
+Action for 192.168.1.4: RATE_LIMIT
+CPU Usage: 49.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 1
+  192.168.1.4: *** ATTACK DETECTED: HTTP_Flood ***
+     Confidence: 1.00
+     Reason: SYN=0, ACK=54, Packets/sec=17.76
+2026-04-28 23:37:33,188 - __main__ - INFO - 192.168.1.4 | Attack=HTTP_Flood | Action=BLOCK | Confidence=1.00
+Action for 192.168.1.4: BLOCK
+CPU Usage: 46.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 1
+  192.168.1.4: *** ATTACK DETECTED: HTTP_Flood ***
+     Confidence: 1.00
+     Reason: SYN=0, ACK=17, Packets/sec=18.85
+2026-04-28 23:37:36,254 - __main__ - INFO - 192.168.1.4 | Attack=HTTP_Flood | Action=BLOCK | Confidence=1.00
+Action for 192.168.1.4: BLOCK
+CPU Usage: 44.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+CPU Usage: 57.3%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+CPU Usage: 65.9%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 78.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 41.3%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 34.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 35.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 49.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 58.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 33.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 45.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 51.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 38.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 46.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 49.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 25.9%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 33.3%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 24.3%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 34.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 32.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 25.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 22.3%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 30.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 27.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 22.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 26.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 37.3%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 25.2%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 23.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 24.2%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 67.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 38.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 50.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 39.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 35.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 40.3%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 52.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 55.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 66.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 43.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 38.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 32.2%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 53.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 41.3%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 49.2%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 51.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 75.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 81.5%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 58.8%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 34.4%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 41.0%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 45.6%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 55.1%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 59.7%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 56.9%
+==============================
+
+===== REAL-TIME ANALYSIS =====
+Total flows in buffer: 0
+No matched traffic yet. Filter is dst_ip=192.168.1.4, ports=[80, 5000, 5001, 8081]
+CPU Usage: 46.7%
+==============================

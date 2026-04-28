@@ -32,6 +32,7 @@ def run_http_server():
 # ==========================
 def run_udp_server():
     udp_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    udp_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     udp_sock.bind(("0.0.0.0", UDP_PORT))
 
     print(f"[UDP] Victim server running on port {UDP_PORT}")

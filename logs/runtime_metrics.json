@@ -1,0 +1,1 @@
+{"timestamp": 1777400866.1296768, "captured_packets_total": 5640, "window_packets": 0, "window_packet_rate": 0.0, "active_flows": 0, "window_flow_count": 0, "detections_in_window": 0, "last_attack": "None", "last_action": "MONITOR", "last_confidence": 0.0, "last_detection_epoch": 1777400107.6193676, "cpu_usage": 21.9, "recent_flows": []}

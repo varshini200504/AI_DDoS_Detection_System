@@ -1,0 +1,21 @@
+{"timestamp": "2026-04-28T18:01:34.068679", "level": "INFO", "module": "__main__", "message": "Loading models..."}
+{"timestamp": "2026-04-28T18:01:48.046927", "level": "INFO", "module": "__main__", "message": "Models loaded successfully!"}
+{"timestamp": "2026-04-28T18:04:19.022880", "level": "INFO", "module": "__main__", "message": "Loading models..."}
+{"timestamp": "2026-04-28T18:04:23.569720", "level": "INFO", "module": "__main__", "message": "Models loaded successfully!"}
+{"timestamp": "2026-04-28T18:07:23.851765", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=RATE_LIMIT | Confidence=0.83"}
+{"timestamp": "2026-04-28T18:07:27.023496", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=UDP | Action=RATE_LIMIT | Confidence=0.83"}
+{"timestamp": "2026-04-28T18:07:30.087484", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=RATE_LIMIT | Confidence=0.83"}
+{"timestamp": "2026-04-28T18:07:33.188872", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=BLOCK | Confidence=1.00"}
+{"timestamp": "2026-04-28T18:07:36.254627", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=BLOCK | Confidence=1.00"}
+{"timestamp": "2026-04-28T18:12:03.596528", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=RATE_LIMIT | Confidence=0.83"}
+{"timestamp": "2026-04-28T18:12:06.658160", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=UDP | Action=RATE_LIMIT | Confidence=0.83"}
+{"timestamp": "2026-04-28T18:12:09.772907", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=BLOCK | Confidence=1.00"}
+{"timestamp": "2026-04-28T18:12:12.863163", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=BLOCK | Confidence=1.00"}
+{"timestamp": "2026-04-28T18:12:15.910312", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=BLOCK | Confidence=1.00"}
+{"timestamp": "2026-04-28T18:12:51.990803", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=UDP | Action=RATE_LIMIT | Confidence=0.81"}
+{"timestamp": "2026-04-28T18:13:40.108282", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=Syn | Action=RATE_LIMIT | Confidence=0.83"}
+{"timestamp": "2026-04-28T18:14:55.275924", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=BLOCK | Confidence=1.00"}
+{"timestamp": "2026-04-28T18:14:58.348728", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=RATE_LIMIT | Confidence=0.83"}
+{"timestamp": "2026-04-28T18:15:01.431159", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=UDP | Action=RATE_LIMIT | Confidence=0.83"}
+{"timestamp": "2026-04-28T18:15:04.537135", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=BLOCK | Confidence=1.00"}
+{"timestamp": "2026-04-28T18:15:07.617856", "level": "INFO", "module": "__main__", "message": "192.168.1.4 | Attack=HTTP_Flood | Action=BLOCK | Confidence=1.00"}
