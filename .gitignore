@@ -1,0 +1,4 @@
+# Large generated artifacts
+final_multiclass_dataset_large.csv
+best_ddos_model.pkl
+binary_ddos_model.pkl
