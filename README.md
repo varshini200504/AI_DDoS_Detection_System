@@ -577,7 +577,7 @@ Check Flask is running on 127.0.0.1:5000
 For questions or issues:
 - Check EXECUTION_PLAN.md for detailed next steps
 - Review ARCHITECTURE.md for technical deep-dive
-- Run `python <module> -h` for module-specific help
+- Run `python <module> -h` for module-specific help.
 
 ---
 
